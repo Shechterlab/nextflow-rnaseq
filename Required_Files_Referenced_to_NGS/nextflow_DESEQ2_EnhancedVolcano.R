@@ -56,10 +56,6 @@ dds$condition <- relevel(dds$condition, ref = "CONTROL")
 
 dds <- DESeq(dds)
 
-#Tidy argument is important so that ENSG become a unique column as opposed to just row names
-#res <- results(dds, tidy=T)
-#resOrdered <- res[order(res$pvalue),]
-
 
 for (i in 2:length(unique(resultsNames(dds)))){
   name <- unique(resultsNames(dds))[i]
