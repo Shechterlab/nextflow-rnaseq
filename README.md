@@ -20,9 +20,13 @@ conda env create -f zlib.yml
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
+
 BiocManager::install("DESeq2")
+
 BiocManager::install("tximport")
+
 BiocManager::install('EnhancedVolcano')
+
 BiocManager::install("apeglm")
 
 # 4. To run the pipeline once it is installed, you need to make a sample metadata file called: "nextflow_sample_metadata.csv" (example file here: https://github.com/nf-core/rnaseq/blob/3.9/assets/samplesheet.csv)
