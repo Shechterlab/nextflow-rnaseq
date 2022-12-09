@@ -37,7 +37,7 @@ BiocManager::install("apeglm")
 
 # 4. Once you have built the necessary envrionments, to run the pipeline first perform a nextflow test run 
 
-sbatch ~/nextflow-rnaseq-deseq2/nextflow_test.sh
+sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
 
 # 5. To run the pipeline, first make a directory for your experiment. Then, make a sample metadata file within that directory called: "nextflow_sample_metadata.csv" (example file here: https://github.com/nf-core/rnaseq/blob/3.9/assets/samplesheet.csv) with the experimental design. Example below:
 
