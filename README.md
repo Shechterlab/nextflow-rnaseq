@@ -21,7 +21,7 @@ conda env create -f zlib_nextflow_rnaseq.yml
 
 # 3. Install R packages by activating the R conda envrionment, opening R, and then running the following commands (you shouldn't have to update the packages so can say no to that prompt)
 
-conda activate R
+conda activate R_nextflow_rnaseq
 
 R
 
