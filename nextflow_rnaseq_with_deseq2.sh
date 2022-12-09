@@ -47,6 +47,6 @@ awk -f $reformat_metadata_file $1/nextflow_sample_metadata.csv > $1/DESEQ2/nextf
 
 conda activate R_nextflow_rnaseq
 
-Rscript $DESEQ2 $1 $tx2gene $
+Rscript $DESEQ2 $1 $tx2gene $gtf_gene_annotation_table
 
 conda deactivate
