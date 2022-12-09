@@ -49,7 +49,7 @@ mkdir ~/EB_2019_12_A549_test
 
 nano ~/EB_2019_12_A549_test/nextflow_sample_metadata.csv
 
-#past the following into the textfile, then save the changes
+#paste the following into the textfile, then save the changes
 
 sample,fastq_1,fastq_2,strandedness
 CONTROL_REP1,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C1/D4C1_CRRA190011662-1a_HMKJGDSXX_L4_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C1/D4C1_CRRA190011662-1a_HMKJGDSXX_L4_2.fq.gz,unstranded
