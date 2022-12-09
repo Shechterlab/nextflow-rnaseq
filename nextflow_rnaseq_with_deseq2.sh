@@ -18,7 +18,7 @@
 
 #Load conda envrionment and modules
 source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
-conda activate zlib
+conda activate zlib_nextflow_rnaseq
 module load singularity
 module load nextflow
 
@@ -45,7 +45,7 @@ mkdir $1/DESEQ2
 #Need to make DESEQ2 metadata sheet
 awk -f $reformat_metadata_file $1/nextflow_sample_metadata.csv > $1/DESEQ2/nextflow_sample_metadata.csv.DESEQ2.metadata.csv
 
-conda activate R
+conda activate R_nextflow_rnaseq
 
 Rscript $DESEQ2 $1
 
