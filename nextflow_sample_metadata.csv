@@ -1,0 +1,7 @@
+sample,fastq_1,fastq_2,strandedness
+CONTROL_REP1,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C1/D4C1_CRRA190011662-1a_HMKJGDSXX_L4_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C1/D4C1_CRRA190011662-1a_HMKJGDSXX_L4_2.fq.gz,unstranded
+CONTROL_REP2,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C2/D4C2_CRRA190011663-1a_HMKJGDSXX_L4_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C2/D4C2_CRRA190011663-1a_HMKJGDSXX_L4_2.fq.gz,unstranded
+CONTROL_REP3,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C3/D4C3_CRRA190011664-1a_HMKJGDSXX_L4_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D4C3/D4C3_CRRA190011664-1a_HMKJGDSXX_L4_2.fq.gz,unstranded
+D2G_REP1,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G1/D2G1_CRRA190011644-1a_HMKJGDSXX_L2_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G1/D2G1_CRRA190011644-1a_HMKJGDSXX_L2_2.fq.gz,unstranded
+D2G_REP2,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G2/D2G2_CRRA190011645-1a_HMKJGDSXX_L2_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G2/D2G2_CRRA190011645-1a_HMKJGDSXX_L2_2.fq.gz,unstranded
+D2G_REP3,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G3/D2G3_CRRA190011646-1a_HMKJGDSXX_L4_1.fq.gz,/gs/gsfs0/users/shechter-lab/data/NGS/rna-seq/EB_2019_12_A549/fq/D2G3/D2G3_CRRA190011646-1a_HMKJGDSXX_L4_2.fq.gz,unstranded
