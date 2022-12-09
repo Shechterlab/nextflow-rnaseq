@@ -58,7 +58,7 @@ dependencies:
   - libpng=1.6.39=h753d276_0
   - libsanitizer=12.2.0=h46fd767_19
   - libssh2=1.10.0=hf14f497_3
-    - libstdcxx-devel_linux-64=12.2.0=h3b97bd3_19
+  - libstdcxx-devel_linux-64=12.2.0=h3b97bd3_19
   - libstdcxx-ng=12.2.0=h46fd767_19
   - libtiff=4.4.0=h55922b4_4
   - libuuid=2.32.1=h7f98852_1000
