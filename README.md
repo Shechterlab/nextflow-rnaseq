@@ -6,7 +6,7 @@ Nextflow RNA-seq is already installed as a module on the HPC: https://nf-co.re/r
 
 # 1. Clone the nextflow-rnaseq-deseq2-enhancedvolcano pipeline
 
-git clone https://github.com/databio/peppro.git
+git clone https://github.com/Shechterlab/nextflow-rnaseq-deseq2.git
 
 
 # 2. Install Conda envrionments
