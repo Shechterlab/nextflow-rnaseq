@@ -1,6 +1,5 @@
 name: R_nextflow_rnaseq
 channels:
-  - conda-forge/label/gcc7
   - conda-forge
   - defaults
 dependencies:
@@ -11,7 +10,7 @@ dependencies:
   - bwidget=1.9.14=ha770c72_1
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.18.1=h7f98852_0
-  - ca-certificates=2018.10.15=ha4d7672_0
+  - ca-certificates=2022.12.7=ha878542_0
   - cairo=1.16.0=ha61ee94_1014
   - curl=7.86.0=h2283fc2_1
   - expat=2.5.0=h27087fc_0
@@ -68,12 +67,13 @@ dependencies:
   - libzlib=1.2.13=h166bdaf_4
   - make=4.3=hd18ef5c_1
   - ncurses=6.3=h27087fc_1
-  - openssl=3.0.7=h166bdaf_0
+  - openssl=3.0.7=h0b41bf4_1
   - pango=1.50.12=h382ae3d_0
   - pcre2=10.40=hc3806b6_0
   - pixman=0.40.0=h36c2ea0_0
   - pthread-stubs=0.4=h36c2ea0_1001
   - r-base=4.2.2=hb87df5d_1
+  - r-xml=3.99_0.13=r42hed7f998_0
   - readline=8.1.2=h0f457ee_0
   - sed=4.8=he412f7d_0
   - sysroot_linux-64=2.12=he073ed8_15
