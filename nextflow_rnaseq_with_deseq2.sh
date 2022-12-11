@@ -25,9 +25,9 @@ module load nextflow
 #Export source variables to envrionment
 .  /gs/gsfs0/users/shechter-lab/data/NGS/stds/source_files/20221207_nextflow_source_file.sh
 
-nextflow run nf-core/rnaseq --input $1/nextflow_sample_metadata.csv \
+nextflow run nf-core/rnaseq --input samplesheet.csv \
 -profile singularity \
---outdir $1 \
+--outdir ./nextflow_results \
 --aligner star_salmon \
 --fasta $nextflow_rna_seq_fasta \
 --gtf $nextflow_rna_seq_gtf \
@@ -40,13 +40,13 @@ module unload nextflow
 module unload singularity
 conda deactivate
 
-mkdir $1/DESEQ2
+mkdir ./nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
-awk -f $reformat_metadata_file $1/nextflow_sample_metadata.csv > $1/DESEQ2/nextflow_sample_metadata.csv.DESEQ2.metadata.csv
+awk -f $reformat_metadata_file samplesheet.csv > ./nextflow_results/DESEQ2/samplesheet_DESeq2.csv
 
 conda activate R_nextflow_rnaseq
 
-Rscript $DESEQ2 $1 $tx2gene $gtf_gene_annotation_table
+Rscript $DESEQ2 $tx2gene $gtf_gene_annotation_table
 
 conda deactivate
