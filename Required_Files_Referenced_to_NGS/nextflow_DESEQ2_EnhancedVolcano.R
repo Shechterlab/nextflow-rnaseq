@@ -21,7 +21,7 @@ if (length(args)==0) {
 #k <- keys(txdb, keytype = "TXNAME")
 #tx2gene <- select(txdb, k, "GENEID", "TXNAME")
 
-setwd(paste0(getwd(),'/DESEQ2'))
+setwd(paste0(getwd(),'/nextflow_results/DESEQ2'))
 
 #path to tx2gene file
 tx2gene <- read.csv(args[1])
