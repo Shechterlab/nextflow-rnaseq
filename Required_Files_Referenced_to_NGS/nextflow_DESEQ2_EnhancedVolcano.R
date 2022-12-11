@@ -21,15 +21,15 @@ if (length(args)==0) {
 #k <- keys(txdb, keytype = "TXNAME")
 #tx2gene <- select(txdb, k, "GENEID", "TXNAME")
 
-setwd(paste0(args[1],'/DESEQ2'))
+setwd(paste0(getwd(),'/DESEQ2'))
 
 #path to tx2gene file
-tx2gene <- read.csv(args[2])
+tx2gene <- read.csv(args[1])
 
 
 dir <- paste0(args[1],'/star_salmon')
 #Load in sample metadata
-samples <- read.csv(paste0(args[1],'/DESEQ2/nextflow_sample_metadata.csv.DESEQ2.metadata.csv'), header = T)
+samples <- read.csv('samplesheet_DESeq2.csv'), header = T)
 #Load in quant files
 files <- file.path(dir, samples$sample, "quant.sf")
 names(files) <- samples$sample
@@ -41,7 +41,7 @@ txi <- tximport(files, type="salmon", tx2gene=tx2gene)
 #zcat /gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4.gtf.gz | awk 'BEGIN{FS="\t"}{split($9,a,";"); if($3~"gene") print a[1]"\t"a[3]"\t"$1":"$4"-"$5"\t"a[5]"\t"$7}' | sed 's/gene_id "//' | sed 's/gene_id "//' | sed 's/gene_biotype "//'| sed 's/gene_name "//' | sed 's/gene_biotype "//' | sed 's/"//g' | sed 's/ //g' | sed '1igene_id\tGeneSymbol\tChromosome\tClass\tStrand' > /gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4.gtf_gene_annotation_table.txt
 
 #path to gtf_gene_annotation_table.txt
-features <- read.table(args[3], header =T)
+features <- read.table(args[2], header =T)
 
 
 #Build dds object
