@@ -19,7 +19,9 @@ conda env create -f ~/nextflow-rnaseq-deseq2/R_nextflow_rnaseq.yml
 
 conda env create -f ~/nextflow-rnaseq-deseq2/zlib_nextflow_rnaseq.yml
 
-# 3. Install R packages by activating the R conda envrionment, opening R, and then running the following commands (you shouldn't have to update the packages so can say no to that prompt)
+# 3. Install R packages 
+
+#Activate the R conda envrionment, open R, and then running the following commands (you shouldn't have to update the packages so can say no to that prompt)
 
 conda activate R_nextflow_rnaseq
 
@@ -39,7 +41,7 @@ BiocManager::install('EnhancedVolcano')
 
 BiocManager::install("apeglm")
 
-# 4. Once you have built the necessary envrionments, to run the pipeline first perform a nextflow test run 
+# 4. Perform a nextflow test run 
 
 sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
 
