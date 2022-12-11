@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=40      # Number of CPU cores per task
 #SBATCH --mem=80gb      # Job memory request
 #SBATCH --time=24:00:00              # Time limit hrs:min:sec
-#SBATCH --output=nextflow_RNAseq.log      # Standard output and error log
+#SBATCH --output=nextflow_RNAseq_test.log      # Standard output and error log
 
 source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
 conda activate zlib_nextflow_rnaseq
