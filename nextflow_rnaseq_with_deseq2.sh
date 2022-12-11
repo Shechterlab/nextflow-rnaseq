@@ -14,7 +14,7 @@
 #SBATCH --cpus-per-task=40      # Number of CPU cores per task
 #SBATCH --mem=80gb      # Job memory request
 #SBATCH --time=24:00:00              # Time limit hrs:min:sec
-#SBATCH --output=nextflow_RNA_test.log      # Standard output and error log
+#SBATCH --output=nextflow_RNAseq.log      # Standard output and error log
 
 #Load conda envrionment and modules
 source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
@@ -47,6 +47,13 @@ awk -f $reformat_metadata_file samplesheet.csv > ./nextflow_results/DESEQ2/sampl
 
 conda activate R_nextflow_rnaseq
 
+#Execute R script with reference files in positional arguments from source variables
 Rscript $DESEQ2 $tx2gene $gtf_gene_annotation_table
 
 conda deactivate
+
+#Test if run is completed successfully by checking log file and if so delete the work directory
+ if grep -q "Pipeline completed successfully" nextflow_RNAseq.log; then   
+ rm -r ./work; 
+ fi
+
