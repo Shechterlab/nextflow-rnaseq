@@ -1,8 +1,7 @@
 #!/bin/bash
 #This script uses Nextflow to process RNA-seq data with nextflow then run DESEQ2 on the output
-#This script requires a sample metadata file called "nextflow_sample_metadata.csv" that is located in the premade output directory
-#Only one argument is necessary: full path to desired output directory with no trailing forward slash
-#e.g. Run as follows: "sbatch nextflow_rnaseq_with_deseq2.sh /path/to/output/dir"
+#This script requires a sample metadata file called "samplesheet.csv"
+#e.g. Run as follows: "sbatch nextflow_rnaseq_with_deseq2.sh"
 
 #By Maxim Maron on 12-09-22
 
