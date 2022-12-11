@@ -21,13 +21,15 @@ if (length(args)==0) {
 #k <- keys(txdb, keytype = "TXNAME")
 #tx2gene <- select(txdb, k, "GENEID", "TXNAME")
 
+#Set a directory where salmon files can be found
+dir <- paste0(getwd(),'/nextflow_results/star_salmon')
+
+#Change to output directory for DESeq2
 setwd(paste0(getwd(),'/nextflow_results/DESEQ2'))
 
 #path to tx2gene file
 tx2gene <- read.csv(args[1])
 
-
-dir <- paste0(args[1],'/star_salmon')
 #Load in sample metadata
 samples <- read.csv('samplesheet_DESeq2.csv', header = T)
 #Load in quant files
