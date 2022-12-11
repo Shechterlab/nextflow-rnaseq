@@ -29,7 +29,7 @@ tx2gene <- read.csv(args[1])
 
 dir <- paste0(args[1],'/star_salmon')
 #Load in sample metadata
-samples <- read.csv('samplesheet_DESeq2.csv'), header = T)
+samples <- read.csv('samplesheet_DESeq2.csv', header = T)
 #Load in quant files
 files <- file.path(dir, samples$sample, "quant.sf")
 names(files) <- samples$sample
