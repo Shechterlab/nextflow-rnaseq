@@ -8,6 +8,6 @@ export nextflow_rna_seq_transcript_fasta=/gs/gsfs0/users/shechter-lab/data/NGS/s
 
 #nextflow rnaseq DESEQ2 misc scripts
 export reformat_metadata_file=/gs/gsfs0/users/shechter-lab/data/NGS/scripts/maron/rename_nextflow_for_deseq2.awk
-export DESEQ2=/gs/gsfs0/users/shechter-lab/data/NGS/scripts/maron/nextflow_DESEQ2_EnhancedVolcano.R
+export DESEQ2=~/nextflow-rnaseq-deseq2/Required_Files_Referenced_to_NGS/nextflow_DESEQ2_EnhancedVolcano.R
 export tx2gene=/gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/tx2gene.csv
 export gtf_gene_annotation_table=/gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4.gtf_gene_annotation_table.txt
