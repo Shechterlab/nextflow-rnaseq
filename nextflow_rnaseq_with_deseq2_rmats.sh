@@ -89,10 +89,10 @@ done
 
 conda deactivate
 
-###END RMATS
+###END RMATS###
 
 
-###START DESEQ2 and PLOT CREATION
+###START DESEQ2 and PLOT CREATION###
 mkdir ./nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
@@ -104,6 +104,8 @@ conda activate R_nextflow_rnaseq
 Rscript $DESEQ2 $tx2gene $gtf_gene_annotation_table
 
 conda deactivate
+
+###END DESEQ2 and PLOT CREATION###
 
 #Test if run is completed successfully by checking log file and if so delete the work directory
  if grep -q "Pipeline completed successfully" nextflow_RNAseq.log; then   
