@@ -25,7 +25,7 @@ module load singularity
 module load nextflow
 
 #Export source variables to envrionment
-.  /gs/gsfs0/users/shechter-lab/data/NGS/stds/source_files/20221210_nextflow_source_file.sh
+.  /gs/gsfs0/users/shechter-lab/data/NGS/stds/source_files/20221220_nextflow_source_file.sh
 
 nextflow run nf-core/rnaseq --input samplesheet.csv \
 -profile singularity \
