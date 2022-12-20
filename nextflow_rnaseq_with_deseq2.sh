@@ -15,6 +15,9 @@
 #SBATCH --time=24:00:00              # Time limit hrs:min:sec
 #SBATCH --output=nextflow_RNAseq.log      # Standard output and error log
 
+
+###RUNNING NEXTFLOW###
+
 #Load conda envrionment and modules
 source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
 conda activate zlib_nextflow_rnaseq
@@ -39,6 +42,57 @@ module unload nextflow
 module unload singularity
 conda deactivate
 
+###END NEXTFLOW###
+
+##RUNNING RMATS###
+#activate the rmats conda envrionment
+conda activate rmats_nextflow
+
+#make a directory to store rmats files
+mkdir rmats/
+
+#create an empty array called length that will store read lengths used to determine median read length for rmats
+length=()
+
+#go through all of the bam files and determine the read length, then append this value to the length array
+for file in $(ls nextflow_results/star_salmon/*.markdup.sorted.bam); do
+	length+=( $(samtools view $file | head -n 1000 | gawk '{print length($10)}' | sort | uniq -c | perl -ane '$_ =~ s/^[ ]+//g;print $_' | sort -k 1nr,1nr | head -1 | cut -f2 -d " ") )
+done
+
+#determine the median read length and store this as a variable to be used with rmats
+read_length=$(printf "%s\n" "${length[@]}" | datamash median 1)
+
+#Make samplesheet that points to location of bam files for rmats
+variables=$(awk -F',' 'FNR>1 && !a[$1]++{print $1}' samplesheet.csv)
+for variable in $variables; do
+	printf `pwd`/nextflow_results/star_salmon/${variable}.markdup.sorted.bam, >> rmats/${variable%%_REP*}_rmats_tmp.csv
+	sed 's/\(.*\),/\1 /' rmats/${variable%%_REP*}_rmats_tmp.csv > rmats/${variable%%_REP*}_rmats.csv
+done
+rm rmats/*_rmats_tmp.csv
+
+
+#build an array of file locations to analyze with rmats and remove the CONTROL
+files_to_analyze=()
+files=$(ls ./rmats/*.csv)
+for file in $files; do
+ files_to_analyze+=$file
+done
+delete=./rmats/CONTROL_rmats.csv
+files_to_analyze=( "${files_to_analyze[@]/$delete}")
+
+#run rmats using the array of variables
+for file in $files; do
+#only take the name after the last forward slash
+ name=$(echo $file | sed 's:.*/::')
+ python rmats.py --b1 ./rmats/CONTROL_rmats.csv --b2 $file --gtf $nextflow_rna_seq_gtf -t paired --readLength $read_length --nthread 40 --od ./rmats/CONTROL_vs_${name%_rmats.csv} --tmp ./rmats/CONTROL_vs_${name%_rmats.csv}_tmp
+done
+
+conda deactivate
+
+###END RMATS
+
+
+###START DESEQ2 and PLOT CREATION
 mkdir ./nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
