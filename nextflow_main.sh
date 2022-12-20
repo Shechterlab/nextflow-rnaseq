@@ -55,6 +55,8 @@ mkdir rmats/
 length=()
 
 #go through all of the bam files and determine the read length, then append this value to the length array
+#encountered error: "samtools: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory" that was fixed by going into the envrionment libraries and renaming libncurses.so.6 to libncurses.so.5
+
 for file in $(ls nextflow_results/star_salmon/*.markdup.sorted.bam); do
 	length+=( $(samtools view $file | head -n 1000 | gawk '{print length($10)}' | sort | uniq -c | perl -ane '$_ =~ s/^[ ]+//g;print $_' | sort -k 1nr,1nr | head -1 | cut -f2 -d " ") )
 done
