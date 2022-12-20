@@ -81,7 +81,7 @@ delete=./rmats/CONTROL_rmats.csv
 files_to_analyze=( "${files_to_analyze[@]/$delete}")
 
 #run rmats using the array of variables
-for file in $files; do
+for file in $files_to_analyze; do
 #only take the name after the last forward slash
  name=$(echo $file | sed 's:.*/::')
  python rmats.py --b1 ./rmats/CONTROL_rmats.csv --b2 $file --gtf $nextflow_rna_seq_gtf -t paired --readLength $read_length --nthread 40 --od ./rmats/CONTROL_vs_${name%_rmats.csv} --tmp ./rmats/CONTROL_vs_${name%_rmats.csv}_tmp
