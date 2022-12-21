@@ -27,9 +27,9 @@ module load nextflow
 #Export source variables to envrionment
 .  /gs/gsfs0/users/shechter-lab/data/NGS/stds/source_files/20221220_nextflow_source_file.sh
 
-nextflow run nf-core/rnaseq --input samplesheet.csv \
+nextflow run nf-core/rnaseq --input `pwd`/samplesheet.csv \
 -profile singularity \
---outdir ./nextflow_results \
+--outdir `pwd`/nextflow_results \
 --aligner star_salmon \
 --fasta $nextflow_rna_seq_fasta \
 --gtf $nextflow_rna_seq_gtf \
@@ -49,7 +49,7 @@ conda deactivate
 conda activate rmats_nextflow
 
 #make a directory to store rmats files
-mkdir rmats/
+mkdir `pwd`/rmats/
 
 #create an empty array called length that will store read lengths used to determine median read length for rmats
 length=()
@@ -57,7 +57,7 @@ length=()
 #go through all of the bam files and determine the read length, then append this value to the length array
 #encountered error: "samtools: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory" that was fixed by going into the envrionment libraries and renaming libncurses.so.6 to libncurses.so.5
 
-for file in $(ls nextflow_results/star_salmon/*.markdup.sorted.bam); do
+for file in $(ls `pwd`/nextflow_results/star_salmon/*.markdup.sorted.bam); do
 	length+=( $(samtools view $file | head -n 1000 | gawk '{print length($10)}' | sort | uniq -c | perl -ane '$_ =~ s/^[ ]+//g;print $_' | sort -k 1nr,1nr | head -1 | cut -f2 -d " ") )
 done
 
@@ -65,28 +65,28 @@ done
 read_length=$(printf "%s\n" "${length[@]}" | datamash median 1)
 
 #Make samplesheet that points to location of bam files for rmats
-variables=$(awk -F',' 'FNR>1 && !a[$1]++{print $1}' samplesheet.csv)
+variables=$(awk -F',' 'FNR>1 && !a[$1]++{print $1}' `pwd`/samplesheet.csv)
 for variable in $variables; do
-	printf `pwd`/nextflow_results/star_salmon/${variable}.markdup.sorted.bam, >> rmats/${variable%%_REP*}_rmats_tmp.txt
-	sed 's/\(.*\),/\1 /' rmats/${variable%%_REP*}_rmats_tmp.txt > rmats/${variable%%_REP*}_rmats.txt
+	printf `pwd`/nextflow_results/star_salmon/${variable}.markdup.sorted.bam, >> `pwd`/rmats/${variable%%_REP*}_rmats_tmp.txt
+	sed 's/\(.*\),/\1 /' `pwd`/rmats/${variable%%_REP*}_rmats_tmp.txt > `pwd`/rmats/${variable%%_REP*}_rmats.txt
 done
-rm rmats/*_rmats_tmp.txt
+rm `pwd`/rmats/*_rmats_tmp.txt
 
 
 #build an array of file locations to analyze with rmats and remove the CONTROL
-files_to_analyze=$(ls ./rmats/*.txt)
+files_to_analyze=$(ls `pwd`/rmats/*.txt)
 
 #run rmats using the array of variables
 for file in $files_to_analyze; do
 #only take the name after the last forward slash
-	if [ $file != "./rmats/CONTROL_rmats.txt" ]; then 
+	if [ $file != "`pwd`/rmats/CONTROL_rmats.txt" ]; then 
 		name=$(echo $file | sed 's:.*/::')
-		rmats.py --b1 ./rmats/CONTROL_rmats.txt --b2 $file --gtf $rmats_gtf -t paired --readLength $read_length --nthread 40 --od ./rmats/CONTROL_vs_${name%_rmats.txt} --tmp ./rmats/CONTROL_vs_${name%_rmats.txt}_tmp
+		rmats.py --b1 `pwd`/rmats/CONTROL_rmats.txt --b2 $file --gtf $rmats_gtf -t paired --readLength $read_length --nthread 40 --od `pwd`/rmats/CONTROL_vs_${name%_rmats.txt} --tmp `pwd`/rmats/CONTROL_vs_${name%_rmats.txt}_tmp
 	fi
 done
 
 #Remove temp directories
-rm -r rmats/*_tmp
+rm -r `pwd`/rmats/*_tmp
 
 conda deactivate
 
@@ -95,16 +95,16 @@ conda deactivate
 ###PLOT CREATION AND DESEQ2###
 
 #Identify directories with rmats analyses and then use Rscript to create violin plots and concatenated output files
-directories=$(ls -d rmats/*/)
+directories=$(ls -d `pwd`/rmats/*/)
 for directory in $directories; do
 	Rscript $rmats_plots $directory
 done
 
 #Make directory for DESEQ2 analysis
-mkdir ./nextflow_results/DESEQ2
+mkdir `pwd`/nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
-awk -f $reformat_metadata_file samplesheet.csv > ./nextflow_results/DESEQ2/samplesheet_DESeq2.csv
+awk -f $reformat_metadata_file `pwd`/samplesheet.csv > `pwd`/nextflow_results/DESEQ2/samplesheet_DESeq2.csv
 
 conda activate R_nextflow_rnaseq
 
@@ -116,6 +116,6 @@ conda deactivate
 ###END DESEQ2 and PLOT CREATION###
 
 #Test if run is completed successfully by checking log file and if so delete the work directory
- if grep -q "Pipeline completed successfully" nextflow_RNAseq.log; then   
- rm -r ./work; 
+ if grep -q "Pipeline completed successfully" `pwd`/nextflow_RNAseq.log; then   
+ rm -r `pwd`/work; 
  fi
