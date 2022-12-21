@@ -5,7 +5,7 @@
 
 #By Maxim Maron on 12-09-22
 
-#SBATCH -p unlimited       #partition/queue name
+#SBATCH -p unlimited      #partition/queue name
 #SBATCH --job-name=nextflow_rnaseq    # Job name
 #SBATCH --mail-type=NONE    # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=maxim.maron@einsteinmed.edu # Where to send mail
@@ -13,13 +13,13 @@
 #SBATCH --cpus-per-task=40      # Number of CPU cores per task
 #SBATCH --mem=80gb      # Job memory request
 #SBATCH --time=24:00:00              # Time limit hrs:min:sec
-#SBATCH --output=nextflow_RNAseq.log      # Standard output and error log
-
+#SBATCH --output=nextflow_RNAseq_2.log      # Standard output and error log
+#SBATCH --get-user-env #Retrieve login envrionment variables
 
 ###RUNNING NEXTFLOW###
 
 #Load conda envrionment and modules
-source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
+.  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
 conda activate zlib_nextflow_rnaseq
 module load singularity
 module load nextflow
@@ -36,7 +36,7 @@ nextflow run nf-core/rnaseq --input samplesheet.csv \
 --star_index $nextflow_rna_seq_star_index \
 --rsem_index $nextflow_rna_seq_rsem_index \
 --gene_bed $nextflow_rna_seq_gene_bed \
---transcript_fasta $nextflow_rna_seq_transcript_fasta
+--transcript_fasta $nextflow_rna_seq_transcript_fasta 
 
 module unload nextflow
 module unload singularity
@@ -67,34 +67,40 @@ read_length=$(printf "%s\n" "${length[@]}" | datamash median 1)
 #Make samplesheet that points to location of bam files for rmats
 variables=$(awk -F',' 'FNR>1 && !a[$1]++{print $1}' samplesheet.csv)
 for variable in $variables; do
-	printf `pwd`/nextflow_results/star_salmon/${variable}.markdup.sorted.bam, >> rmats/${variable%%_REP*}_rmats_tmp.csv
-	sed 's/\(.*\),/\1 /' rmats/${variable%%_REP*}_rmats_tmp.csv > rmats/${variable%%_REP*}_rmats.csv
+	printf `pwd`/nextflow_results/star_salmon/${variable}.markdup.sorted.bam, >> rmats/${variable%%_REP*}_rmats_tmp.txt
+	sed 's/\(.*\),/\1 /' rmats/${variable%%_REP*}_rmats_tmp.txt > rmats/${variable%%_REP*}_rmats.txt
 done
-rm rmats/*_rmats_tmp.csv
+rm rmats/*_rmats_tmp.txt
 
 
 #build an array of file locations to analyze with rmats and remove the CONTROL
-files_to_analyze=()
-files=$(ls ./rmats/*.csv)
-for file in $files; do
- files_to_analyze+=$file
-done
-delete=./rmats/CONTROL_rmats.csv
-files_to_analyze=( "${files_to_analyze[@]/$delete}")
+files_to_analyze=$(ls ./rmats/*.txt)
 
 #run rmats using the array of variables
 for file in $files_to_analyze; do
 #only take the name after the last forward slash
- name=$(echo $file | sed 's:.*/::')
- rmats.py --b1 ./rmats/CONTROL_rmats.csv --b2 $file --gtf $rmats_gtf -t paired --readLength $read_length --nthread 40 --od ./rmats/CONTROL_vs_${name%_rmats.csv} --tmp ./rmats/CONTROL_vs_${name%_rmats.csv}_tmp
+	if [ $file != "./rmats/CONTROL_rmats.txt" ]; then 
+		name=$(echo $file | sed 's:.*/::')
+		rmats.py --b1 ./rmats/CONTROL_rmats.txt --b2 $file --gtf $rmats_gtf -t paired --readLength $read_length --nthread 40 --od ./rmats/CONTROL_vs_${name%_rmats.txt} --tmp ./rmats/CONTROL_vs_${name%_rmats.txt}_tmp
+	fi
 done
+
+#Remove temp directories
+rm -r rmats/*_tmp
 
 conda deactivate
 
 ###END RMATS###
 
+###PLOT CREATION AND DESEQ2###
 
-###START DESEQ2 and PLOT CREATION###
+#Identify directories with rmats analyses and then use Rscript to create violin plots and concatenated output files
+directories=$(ls -d rmats/*/)
+for directory in $directories; do
+	Rscript $rmats_plots $directory
+done
+
+#Make directory for DESEQ2 analysis
 mkdir ./nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
@@ -113,4 +119,3 @@ conda deactivate
  if grep -q "Pipeline completed successfully" nextflow_RNAseq.log; then   
  rm -r ./work; 
  fi
-
