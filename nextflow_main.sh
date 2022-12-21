@@ -13,7 +13,7 @@
 #SBATCH --cpus-per-task=40      # Number of CPU cores per task
 #SBATCH --mem=80gb      # Job memory request
 #SBATCH --time=24:00:00              # Time limit hrs:min:sec
-#SBATCH --output=nextflow_RNAseq_2.log      # Standard output and error log
+#SBATCH --output=nextflow_RNAseq.log      # Standard output and error log
 #SBATCH --get-user-env #Retrieve login envrionment variables
 
 ###RUNNING NEXTFLOW###
