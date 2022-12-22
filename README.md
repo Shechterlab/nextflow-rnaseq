@@ -10,7 +10,9 @@
 
 # 1. Clone the nextflow-rnaseq-deseq2-enhancedvolcano pipeline 
 
-#execute the code below in your home directory
+#navigate to home directory and execute the code below in your home directory
+
+cd
 
 git clone https://github.com/Shechterlab/nextflow-rnaseq-deseq2.git
 
@@ -20,6 +22,8 @@ git clone https://github.com/Shechterlab/nextflow-rnaseq-deseq2.git
 conda env create -f ~/nextflow-rnaseq-deseq2/R_nextflow_rnaseq.yml
 
 conda env create -f ~/nextflow-rnaseq-deseq2/zlib_nextflow_rnaseq.yml
+
+conda env create -f ~/nextflow-rnaseq-deseq2/rmats_nextflow.yml
 
 # 3. Install R packages 
 
@@ -42,6 +46,10 @@ BiocManager::install("tximport")
 BiocManager::install('EnhancedVolcano')
 
 BiocManager::install("apeglm")
+
+install.packages('tidyverse')
+
+install.packages('data.table')
 
 # 4. Perform a nextflow test run 
 
