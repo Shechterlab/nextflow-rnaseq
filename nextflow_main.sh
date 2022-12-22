@@ -94,6 +94,9 @@ conda deactivate
 
 ###PLOT CREATION AND DESEQ2###
 
+#load conda R env
+conda activate R_nextflow_rnaseq
+
 #Identify directories with rmats analyses and then use Rscript to create violin plots and concatenated output files
 directories=$(ls -d `pwd`/rmats/*/)
 for directory in $directories; do
@@ -105,8 +108,6 @@ mkdir `pwd`/nextflow_results/DESEQ2
 
 #Need to make DESEQ2 metadata sheet
 awk -f $reformat_metadata_file `pwd`/samplesheet.csv > `pwd`/nextflow_results/DESEQ2/samplesheet_DESeq2.csv
-
-conda activate R_nextflow_rnaseq
 
 #Execute R script with reference files in positional arguments from source variables
 Rscript $DESEQ2 $tx2gene $gtf_gene_annotation_table
