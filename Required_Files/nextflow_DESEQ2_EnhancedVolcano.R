@@ -71,7 +71,7 @@ for (i in 2:length(unique(resultsNames(dds)))){
   plotMA(res)
   dev.off()
   res_df <- res_df[!is.na(res_df$padj),]
-  pdf(paste0(name,'_Vocano_plot.pdf'), height = 8, width = 8)
+  pdf(paste0(name,'_Volcano_plot.pdf'), height = 8, width = 8)
   print(EnhancedVolcano(res_df,
     lab = res_df$GeneSymbol,
     x = 'log2FoldChange',
