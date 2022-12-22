@@ -19,11 +19,7 @@ git clone https://github.com/Shechterlab/nextflow-rnaseq-deseq2.git
 
 # 2. Install Conda envrionments
 
-conda env create -f ~/nextflow-rnaseq-deseq2/envs/R_nextflow_rnaseq.yml
-
-conda env create -f ~/nextflow-rnaseq-deseq2/envs/zlib_nextflow_rnaseq.yml
-
-conda env create -f ~/nextflow-rnaseq-deseq2/envs/rmats_nextflow.yml
+. ~/nextflow-rnaseq-deseq2/build_envs.sh
 
 # 3. Install R packages 
 
