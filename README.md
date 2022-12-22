@@ -61,7 +61,7 @@ sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
 
 sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_with_deseq2.sh
 
-#you can follow the output in the "~/nextflow-rnaseq-deseq2/nextflow_RNAseq.log" file or in the ~/nextflow_results/pipeline_info/ directory
+#you can follow the output in the "nextflow_RNAseq.log" file or in the nextflow_results/pipeline_info/ directory
 
 
 
