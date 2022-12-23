@@ -87,7 +87,7 @@ done
 
 #Remove temp directories
 rm -r `pwd`/rmats/*_tmp
-
+rm -r `pwd`/rmats/*/tmp
 conda deactivate
 
 ###END RMATS###
