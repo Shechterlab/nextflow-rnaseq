@@ -43,6 +43,12 @@ BiocManager::install('EnhancedVolcano')
 
 BiocManager::install("apeglm")
 
+BiocManager::install("clusterProfiler")
+
+BiocManager::install("org.Hs.eg.db")
+
+BiocManager::install("biomaRt")
+
 install.packages('tidyverse')
 
 install.packages('data.table')
@@ -50,6 +56,9 @@ install.packages('data.table')
 install.packages('RColorBrewer')
 
 install.packages('pheatmap')
+
+install.packages('dplyr')
+
 
 # 4. Perform a nextflow test run 
 
