@@ -25,9 +25,9 @@ dataset <- lapply(file_list, function(x){
 #Rename the dataframes in the list to match the original file from which they were derived
 names(dataset) <- files
 
-#Filter for FDR < 0.05
+#Filter for padj < 0.05
 dataset <- lapply(dataset, function(x) filter(x, padj < 0.05))
-#Filter for FDR < 0.05
+#Order by increasing padj
 dataset <- lapply(dataset, function(x) {x <- x[order(x$padj,decreasing = F),];x})
 #Filter for top 200 genes
 dataset <- lapply(dataset, function(x) {x <- x[1:200,];x})
