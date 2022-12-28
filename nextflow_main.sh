@@ -92,7 +92,7 @@ conda deactivate
 
 ###END RMATS###
 
-###PLOT CREATION AND DESEQ2###
+###DESEQ2, CLUSTERPROFILER, AND PLOT CREATION###
 
 #load conda R env
 conda activate R_nextflow_rnaseq
@@ -111,6 +111,12 @@ awk -f $reformat_metadata_file `pwd`/samplesheet.csv > `pwd`/nextflow_results/DE
 
 #Execute R script with reference files in positional arguments from source variables
 Rscript $DESEQ2 $tx2gene $gtf_gene_annotation_table
+
+#Make directory for CLUSTERPROFILER analysis
+mkdir `pwd`/nextflow_results/ClusterProfiler
+
+#Execute R script for Cluster Profiler
+Rscript $ClusterProfiler
 
 conda deactivate
 
