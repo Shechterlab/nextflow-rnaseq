@@ -1,11 +1,13 @@
 #This is intended to be run together with the nextflow rnaseq pipeline "nextflow_rnaseq.sh"
 #Only required argument is the path to output directory for nextflow
-#By Maxim Maron 12-03-22
+#By Maxim Maron 12-28-22
 #Load required packages
 library(DESeq2)
 library(tximport)
 library(apeglm)
 library(EnhancedVolcano)
+library(RColorBrewer)
+library(pheatmap)
 #Only load GenomicFeatures if making the tx2gene file for the first time
 #library(GenomicFeatures)
 
@@ -23,6 +25,9 @@ if (length(args)==0) {
 
 #Set a directory where salmon files can be found
 dir <- paste0(getwd(),'/nextflow_results/star_salmon')
+
+#Create a variable to store the analysis name
+analysis_name <- basename(getwd())
 
 #Change to output directory for DESeq2
 setwd(paste0(getwd(),'/nextflow_results/DESEQ2'))
@@ -48,21 +53,64 @@ features <- read.table(args[2], header =T)
 
 #Build dds object
 dds <- DESeqDataSetFromTximport(txi,
-                                   colData = samples,
-                                   design = ~ condition)
+                                colData = samples,
+                                design = ~ condition)
 
+#filter out genes with less than 10 counts
 keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep,]
 
+#relevel the condition column so that the control is the reference
 dds$condition <- relevel(dds$condition, ref = "CONTROL")
 
 dds <- DESeq(dds)
 
+# create a vst object from the dds object
+vsd <- vst(dds, blind=FALSE)
 
+# order the rows of the count matrix by the mean of each row
+select <- order(rowMeans(counts(dds,normalized=TRUE)),
+                decreasing=TRUE)
+
+# create a data frame with the condition of each sample
+df <- as.data.frame(colData(dds)[,c("condition")])
+
+# create a heatmap of the count matrix
+pdf(paste0(analysis_name, "_Heatmap_CountMatrix.pdf"), height = 8, width = 8)
+pheatmap(assay(vsd)[select,], cluster_rows=FALSE, show_rownames=FALSE,
+         cluster_cols=FALSE, annotation_col=df)
+dev.off()
+
+# calculate the distance between each sample
+sampleDists <- dist(t(assay(vsd)))
+
+# create a matrix of the sample distances
+sampleDistMatrix <- as.matrix(sampleDists)
+rownames(sampleDistMatrix) <- paste(vsd$condition, sep="-")
+colnames(sampleDistMatrix) <- NULL
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+
+pdf(paste0(analysis_name, "_Heatmap_SampleDistances.pdf"), height = 8, width = 8)
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists,
+         col=colors)
+dev.off()
+
+pdf(paste0(analysis_name, "_PCA.pdf"), height = 8, width = 8)
+plotPCA(vsd, intgroup=c("condition", "type"))
+dev.off()
+
+
+# for loop to iterate through each comparison
 for (i in 2:length(unique(resultsNames(dds)))){
+  # name the comparison
   name <- unique(resultsNames(dds))[i]
+  # run DESeq2 analysis
   res <- lfcShrink(dds, coef=name, type="apeglm")
+  # add gene_id column to results
   res$gene_id <- rownames(res)
+  # convert results to dataframe
   res_df <- as.data.frame(res)
   res_df <- merge(res_df, features, by.x="gene_id", by.y="gene_id")
   res_df <- res_df[order(res_df$padj),]
@@ -73,15 +121,16 @@ for (i in 2:length(unique(resultsNames(dds)))){
   res_df <- res_df[!is.na(res_df$padj),]
   pdf(paste0(name,'_Volcano_plot.pdf'), height = 8, width = 8)
   print(EnhancedVolcano(res_df,
-    lab = res_df$GeneSymbol,
-    x = 'log2FoldChange',
-    y = 'pvalue',
-    title = name,
-    pCutoff = 0.05,
-    FCcutoff = 1.5,
-    pointSize = 2.0,
-    labSize = 5.0,
-    col=c('#d4d4d4', '#d4d4d4', '#fdbb84', '#e34a33'),
-    colAlpha = 0.5))
+                        lab = res_df$GeneSymbol,
+                        x = 'log2FoldChange',
+                        y = 'pvalue',
+                        title = name,
+                        pCutoff = 0.05,
+                        FCcutoff = 1.5,
+                        pointSize = 2.0,
+                        labSize = 5.0,
+                        col=c('#d4d4d4', '#d4d4d4', '#fdbb84', '#e34a33'),
+                        colAlpha = 0.5))
   dev.off()
 }
+
