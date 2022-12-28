@@ -47,6 +47,10 @@ install.packages('tidyverse')
 
 install.packages('data.table')
 
+install.packages('RColorBrewer')
+
+install.packages('pheatmap')
+
 # 4. Perform a nextflow test run 
 
 sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
