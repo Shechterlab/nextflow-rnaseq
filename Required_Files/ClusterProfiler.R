@@ -6,7 +6,10 @@ library(enrichplot)
 library(biomaRt)
 library(dplyr)
 
-analysis_name <- basename(getwd()) # define a variable with the name of the working directory
+#make a variable with the initial working directory path
+initial_wd <- getwd()
+
+analysis_name <- basename(getwd()) # define a variable with the base name of the working directory
 
 setwd(paste0(getwd(),'/nextflow_results/DESEQ2')) # set the working directory to the nextflow_results/DESEQ2 directory
 
@@ -57,7 +60,7 @@ dataframes <- lapply(dataframes, function(x) x[!is.na(x$entrez),])
 # bind the dataframes together
 df <- dataframes %>% bind_rows(.id = 'df')
 
-setwd(paste0(getwd(),'/nextflow_results/ClusterProfiler')) # set the working directory to the nextflow_results/ClusterProfiler directory
+setwd(paste0(initial_wd,'/nextflow_results/ClusterProfiler')) # set the working directory to the nextflow_results/ClusterProfiler directory
 
 # perform the GO enrichment analysis and output plots
 formula_GO_BP <- compareCluster(entrez~df, data = df, fun="enrichGO",  OrgDb = org.Hs.eg.db, ont = 'BP', pAdjustMethod = "BH", pvalueCutoff = 0.05, qvalueCutoff = 0.05)
