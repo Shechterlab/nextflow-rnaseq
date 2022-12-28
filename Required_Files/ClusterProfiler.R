@@ -4,7 +4,6 @@ library(clusterProfiler)
 library(org.Hs.eg.db)
 library(enrichplot)
 library(biomaRt)
-library(dplyr)
 
 #make a variable with the initial working directory path
 initial_wd <- getwd()
