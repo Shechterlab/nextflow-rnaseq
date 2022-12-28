@@ -68,16 +68,9 @@ dds <- DESeq(dds)
 # create a vst object from the dds object
 vsd <- vst(dds, blind=FALSE)
 
-# order the rows of the count matrix by the mean of each row
-select <- order(rowMeans(counts(dds,normalized=TRUE)),
-                decreasing=TRUE)
-
-# create a data frame with the condition of each sample
-df <- as.data.frame(colData(dds)[,c("condition")])
-
 # create a heatmap of the count matrix
 pdf(paste0(analysis_name, "_Heatmap_CountMatrix.pdf"), height = 8, width = 8)
-pheatmap(assay(vsd)[select,], cluster_rows=FALSE, show_rownames=FALSE,
+pheatmap(assay(vsd), cluster_rows=FALSE, show_rownames=FALSE,
          cluster_cols=FALSE, annotation_col=df)
 dev.off()
 
