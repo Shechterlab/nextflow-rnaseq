@@ -12,3 +12,4 @@ export reformat_metadata_file=~/nextflow-rnaseq-deseq2/Required_Files/rename_nex
 export DESEQ2=~/nextflow-rnaseq-deseq2/Required_Files/nextflow_DESEQ2_EnhancedVolcano.R
 export tx2gene=/gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/tx2gene.csv
 export gtf_gene_annotation_table=/gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4.gtf_gene_annotation_table.txt
+export ClusterProfiler=~/nextflow-rnaseq-deseq2/Required_Files/ClusterProfiler.R
