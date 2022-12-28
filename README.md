@@ -57,8 +57,6 @@ install.packages('RColorBrewer')
 
 install.packages('pheatmap')
 
-install.packages('dplyr')
-
 
 # 4. Perform a nextflow test run 
 
