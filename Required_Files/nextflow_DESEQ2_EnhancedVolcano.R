@@ -68,10 +68,17 @@ dds <- DESeq(dds)
 # create a vst object from the dds object
 vsd <- vst(dds, blind=FALSE)
 
+# load the column data
+cdata <- colData(dds)
+
+
 # create a heatmap of the count matrix
 pdf(paste0(analysis_name, "_Heatmap_CountMatrix.pdf"), height = 8, width = 8)
-pheatmap(assay(vsd), cluster_rows=FALSE, show_rownames=FALSE,
-         cluster_cols=FALSE, annotation_col=df)
+pheatmap(assay(vsd),
+         cluster_rows = FALSE,
+         show_rownames = FALSE,
+         cluster_cols = FALSE,
+         annotation_col = as.data.frame(cdata[,"condition"], row.names=rownames(cdata)))
 dev.off()
 
 # calculate the distance between each sample
@@ -90,8 +97,9 @@ pheatmap(sampleDistMatrix,
          col=colors)
 dev.off()
 
+#Create a PCA of the sample data
 pdf(paste0(analysis_name, "_PCA.pdf"), height = 8, width = 8)
-plotPCA(vsd, intgroup=c("condition", "type"))
+plotPCA(vsd, intgroup=c("condition"))
 dev.off()
 
 
