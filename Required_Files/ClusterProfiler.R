@@ -32,9 +32,6 @@ dataset <- lapply(dataset, function(x) {x <- x[order(x$padj,decreasing = F),];x}
 #Filter for top 200 genes
 dataset <- lapply(dataset, function(x) {x <- x[1:200,];x})
 
-#dataset <- lapply(dataset, function(x) {x$transcript_id <- gsub("\\..*","",x$transcript_id);x})
-#dataset <- lapply(dataset, function(x) {names(x)[names(x) == 'transcript_id'] <- 'gene_id';x})
-
 # load the dataset containing gene information from biomart
 mart <- useMart(biomart="ENSEMBL_MART_ENSEMBL", host="https://uswest.ensembl.org", dataset = 'hsapiens_gene_ensembl')
 
