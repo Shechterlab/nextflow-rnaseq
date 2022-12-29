@@ -71,6 +71,7 @@ dependencies:
   - pango=1.50.12=h382ae3d_0
   - pcre2=10.40=hc3806b6_0
   - pixman=0.40.0=h36c2ea0_0
+  - pkg-config=0.29.2=h36c2ea0_1008
   - pthread-stubs=0.4=h36c2ea0_1001
   - r-base=4.2.2=hb87df5d_1
   - r-xml=3.99_0.13=r42hed7f998_0
