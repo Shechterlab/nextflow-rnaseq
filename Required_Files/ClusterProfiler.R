@@ -62,7 +62,7 @@ setwd(paste0(initial_wd,'/nextflow_results/ClusterProfiler')) # set the working 
 formula_GO_BP <- compareCluster(entrez~df, data = df, fun="enrichGO",  OrgDb = org.Hs.eg.db, ont = 'BP', pAdjustMethod = "BH", pvalueCutoff = 0.05, qvalueCutoff = 0.05)
 formula_GO_simple_BP <-  simplify(formula_GO_BP, cutoff=0.7, by="p.adjust", select_fun=min)
 
-pdf(paste0(analysis_name, "_enrichGO_BP.pdf"), height = 8, width = 8)
+pdf(paste0(analysis_name, "_enrichGO_BP.pdf"), height = 16, width = 16)
 dotplot(formula_GO_simple_BP, showCategory = 20)+ scale_color_gradient(low = "#2c7bb6", high="#d7191c" ) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.x=element_text(angle=45, hjust=1))
@@ -71,7 +71,7 @@ dev.off()
 formula_GO_MF <- compareCluster(entrez~df, data = df, fun="enrichGO",  OrgDb = org.Hs.eg.db, ont = 'MF', pAdjustMethod = "BH", pvalueCutoff = 0.05, qvalueCutoff = 0.05)
 formula_GO_simple_MF <-  simplify(formula_GO_MF, cutoff=0.7, by="p.adjust", select_fun=min)
 
-pdf(paste0(analysis_name, "_enrichGO_MF.pdf"), height = 8, width = 8)
+pdf(paste0(analysis_name, "_enrichGO_MF.pdf"), height = 16, width = 16)
 dotplot(formula_GO_simple_MF, showCategory = 20)+ scale_color_gradient(low = "#2c7bb6", high="#d7191c" ) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.x=element_text(angle=45, hjust=1))
@@ -80,7 +80,7 @@ dev.off()
 formula_GO_CC <- compareCluster(entrez~df, data = df, fun="enrichGO",  OrgDb = org.Hs.eg.db, ont = 'CC', pAdjustMethod = "BH", pvalueCutoff = 0.05, qvalueCutoff = 0.05)
 formula_GO_simple_CC <-  simplify(formula_GO_CC, cutoff=0.7, by="p.adjust", select_fun=min)
 
-pdf(paste0(analysis_name, "_enrichGO_CC.pdf"), height = 8, width = 8)
+pdf(paste0(analysis_name, "_enrichGO_CC.pdf"), height = 16, width = 16)
 dotplot(formula_GO_simple_CC, showCategory = 20)+ scale_color_gradient(low = "#2c7bb6", high="#d7191c" ) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.x=element_text(angle=45, hjust=1))
@@ -89,7 +89,7 @@ dev.off()
 
 formula_KEGG <- compareCluster(entrez~df, data = df, fun = 'enrichKEGG', pAdjustMethod = "BH", pvalueCutoff = 0.05, qvalueCutoff = 0.05)
 
-pdf(paste0(analysis_name, "_enrichKEGG.pdf"), height = 8, width = 8)
+pdf(paste0(analysis_name, "_enrichKEGG.pdf"), height = 16, width = 16)
 dotplot(formula_KEGG, showCategory = 20)+ scale_color_gradient(low = "#2c7bb6", high="#d7191c" ) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.x=element_text(angle=45, hjust=1))
