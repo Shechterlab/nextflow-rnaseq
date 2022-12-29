@@ -1,6 +1,6 @@
 # nextflow-rnaseq-deseq2 overview
 
-#Run nextflow-rnaseq pipeline followed by rMATS and DESEQ2 with Splicing Event Violin Plots and EnhancedVolcano Output on Einstein's HPC 
+#Run nextflow-rnaseq pipeline followed by rMATS with Splicing Event Violin Plots, DESEQ2 with QC metrics and EnhancedVolcano, as well as ClusterProfiler with Dot Plots on Einstein's HPC 
 
 #The genome reference files are located at: /gs/gsfs0/users/shechter-lab/data/NGS/stds/refgenie/hg38/
 
