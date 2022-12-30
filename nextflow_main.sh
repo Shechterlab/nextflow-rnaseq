@@ -106,7 +106,10 @@ done
 #Make directory for DESEQ2 analysis
 mkdir `pwd`/nextflow_results/DESEQ2
 
-#Need to make DESEQ2 metadata sheet
+#Need to make DESEQ2 metadata sheet; however, prior to doing that remove carriage return if it exists (this can be an inadvertent consequence of various text editors used to make the samplesheet) as this will cause downstream errors
+mv `pwd`/samplesheet.csv  `pwd`/samplesheet2.csv
+sed -e "s/\r//g" `pwd`/samplesheet2.csv > `pwd`/samplesheet.csv
+rm `pwd`/samplesheet2.csv
 awk -f $reformat_metadata_file `pwd`/samplesheet.csv > `pwd`/nextflow_results/DESEQ2/samplesheet_DESeq2.csv
 
 #Execute R script with reference files in positional arguments from source variables
