@@ -64,7 +64,7 @@ sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
 
 #You only need a sample metadata file in your directory called "samplesheet.csv" (example file here: https://github.com/nf-core/rnaseq/blob/3.9/assets/samplesheet.csv) with the experimental design. Please make sure the control samples within the samplesheet are clearly labeled "CONTROL_RepX". The included example can be used as a test and a guide.
 
-sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_with_deseq2.sh
+sbatch ~/nextflow-rnaseq-deseq2/nextflow_main.sh
 
 #you can follow the output in the "nextflow_RNAseq.log" file or in the nextflow_results/pipeline_info/ directory
 
