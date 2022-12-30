@@ -6,7 +6,7 @@
 
 #Nextflow RNA-seq is already installed as a module on the HPC: https://nf-co.re/rnaseq
 
-# 1. Clone the nextflow-rnaseq-deseq2-enhancedvolcano pipeline 
+# 1. Clone the nextflow-rnaseq-deseq2 pipeline 
 
 #navigate to home directory and execute the code below in your home directory
 
