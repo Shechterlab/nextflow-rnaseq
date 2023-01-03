@@ -10,14 +10,14 @@
 
 #navigate to home directory and execute the code below in your home directory
 
-cd
+cd ~/.
 
 git clone https://github.com/Shechterlab/nextflow-rnaseq.git
 
 
 # 2. Install Conda envrionments
 
-. ~/nextflow-rnaseq-deseq2/build_envs.sh
+. ~/nextflow-rnaseq/build_envs.sh
 
 # 3. Install R packages 
 
@@ -58,13 +58,13 @@ install.packages('pheatmap')
 
 # 4. Perform a nextflow test run 
 
-sbatch ~/nextflow-rnaseq-deseq2/nextflow_rnaseq_test.sh
+sbatch ~/nextflow-rnaseq/nextflow_rnaseq_test.sh
 
 # 5. Running the pipeline 
 
 #You only need a sample metadata file in your directory called "samplesheet.csv" (example file here: https://github.com/nf-core/rnaseq/blob/3.9/assets/samplesheet.csv) with the experimental design. Please make sure the control samples within the samplesheet are clearly labeled "CONTROL_RepN". The included example can be used as a test and a guide.
 
-sbatch ~/nextflow-rnaseq-deseq2/nextflow_main.sh
+sbatch ~/nextflow-rnaseq/nextflow_main.sh
 
 #you can follow the output in the "nextflow_RNAseq.log" file or in the nextflow_results/pipeline_info/ directory
 
