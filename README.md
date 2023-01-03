@@ -10,7 +10,7 @@
 
 #navigate to home directory and execute the code below in your home directory
 
-cd ~/.
+cd ~/
 
 git clone https://github.com/Shechterlab/nextflow-rnaseq.git
 
