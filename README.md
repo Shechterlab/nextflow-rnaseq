@@ -1,4 +1,4 @@
-# nextflow-rnaseq-deseq2 overview
+# nextflow-rnaseq overview
 
 #Run nextflow-rnaseq pipeline followed by rMATS with Splicing Event Violin Plots, DESEQ2 with QC metrics and EnhancedVolcano, as well as ClusterProfiler with Dot Plots on Einstein's HPC 
 
