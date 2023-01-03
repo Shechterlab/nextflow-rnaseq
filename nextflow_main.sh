@@ -1,9 +1,9 @@
 #!/bin/bash
-#This script uses Nextflow to process RNA-seq data with nextflow then run DESEQ2 on the output
+#This script uses Nextflow to process RNA-seq data with nextflow then run DESEQ2, rMATS, and ClusterProfiler on the output
 #This script requires a sample metadata file called "samplesheet.csv"
-#e.g. Run as follows: "sbatch nextflow_rnaseq_with_deseq2.sh"
+#e.g. Run as follows: "sbatch nextflow_main.sh"
 
-#By Maxim Maron on 12-09-22
+#By Maxim Maron on 12-03-22
 
 #SBATCH -p unlimited      #partition/queue name
 #SBATCH --job-name=nextflow_rnaseq    # Job name
