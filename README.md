@@ -12,7 +12,7 @@
 
 cd
 
-git clone https://github.com/Shechterlab/nextflow-rnaseq-deseq2.git
+git clone https://github.com/Shechterlab/nextflow-rnaseq.git
 
 
 # 2. Install Conda envrionments
