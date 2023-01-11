@@ -21,7 +21,7 @@ git clone https://github.com/Shechterlab/nextflow-rnaseq.git
 
 # 3. Install R packages 
 
-#Activate the R conda envrionment, open R, and then running the following commands (you shouldn't have to update the packages so can say no to that prompt)
+#Activate the R conda envrionment, open R, and then run the following commands (you shouldn't have to update the packages so can say no to that prompt)
 
 conda activate R_nextflow_rnaseq
 
