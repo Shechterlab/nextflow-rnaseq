@@ -58,7 +58,26 @@ install.packages('pheatmap')
 
 # 4. Perform a nextflow test run 
 
-sbatch ~/nextflow-rnaseq/nextflow_rnaseq_test.sh
+#navigate to home directory
+cd ~/
+
+#make a new directory for the test run
+mkdir nextflow_test
+
+#navigate to that directory
+cd nextflow_test 
+
+#copy the samplesheet from the parent pipleine directory to your test directory
+cp ~/nextflow-rnaseq/samplesheet.csv .
+
+#execute the pipeline
+sbatch ~/nextflow-rnaseq/nextflow_main.sh
+
+#monitor progress by using squeue and checking the log file 
+
+squeue -u your_user_id
+
+less nextflow_RNAseq.log
 
 # 5. Running the pipeline 
 
