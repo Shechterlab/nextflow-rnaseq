@@ -22,7 +22,7 @@
 .  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
 conda activate zlib_nextflow_rnaseq
 module load singularity
-module load nextflow
+conda activate nextflow
 
 #Export source variables to envrionment
 .  /gs/gsfs0/users/shechter-lab/data/NGS/stds/source_files/20221228_nextflow_source_file.sh
@@ -38,7 +38,7 @@ nextflow run nf-core/rnaseq --input `pwd`/samplesheet.csv \
 --gene_bed $nextflow_rna_seq_gene_bed \
 --transcript_fasta $nextflow_rna_seq_transcript_fasta 
 
-module unload nextflow
+conda deactivate
 module unload singularity
 conda deactivate
 
