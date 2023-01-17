@@ -14,10 +14,10 @@
 source  /gs/gsfs0/hpc01/rhel8/apps/conda3/bin/activate
 conda activate zlib_nextflow_rnaseq
 module load singularity
-module load nextflow
+conda activate nextflow
 
 nextflow run nf-core/rnaseq -profile test,singularity --outdir nextflow_test
 
-module unload nextflow
-moedule unload singularity
+conda deactivate
+module unload singularity
 conda deactivate
