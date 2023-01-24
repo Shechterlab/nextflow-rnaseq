@@ -124,7 +124,7 @@ for (i in 2:length(unique(resultsNames(dds)))){
   print(EnhancedVolcano(res_df,
                         lab = res_df$GeneSymbol,
                         x = 'log2FoldChange',
-                        y = 'pvalue',
+                        y = 'padj',
                         title = name,
                         pCutoff = 0.05,
                         FCcutoff = 1.5,
