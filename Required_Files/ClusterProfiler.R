@@ -33,7 +33,7 @@ dataset <- lapply(dataset, function(x) {x <- x[order(x$padj,decreasing = F),];x}
 dataset <- lapply(dataset, function(x) {x <- x[1:200,];x})
 
 # load the dataset containing gene information from biomart
-mart <- useMart(biomart="ENSEMBL_MART_ENSEMBL", host="https://uswest.ensembl.org", dataset = 'hsapiens_gene_ensembl')
+mart <- useMart(biomart="ENSEMBL_MART_ENSEMBL", host="https://useast.ensembl.org", dataset = 'hsapiens_gene_ensembl')
 
 # get the entrez gene id for each gene
 dataset_symbol <- lapply(dataset, function(x) getBM(filters= "ensembl_gene_id", attributes= c("ensembl_gene_id","entrezgene_id"),values=x$gene_id,mart= mart))
